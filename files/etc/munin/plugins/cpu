@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 12:33
+# Last Modified: Thursday 13 June 2024, 17:03
 # $Id: cpu,v 1.6 2024/06/12 20:41:03 czo Exp $
-# Edit Time: 6:41:44
+# Edit Time: 6:41:58
 # Description:
 #
 #           Munin plugin
@@ -29,11 +29,11 @@ open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
 while (<FILE>) {
     chomp;
     if (/^cpu\s/) {
-        if ( ( $user, $nice, $system, $idle, $iowait, $irq, $softirq ) = m/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/ ) {
+        if ( ( $user, $nice, $system, $idle, $iowait, $irq, $softirq ) = /^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/ ) {
             $extinfo             = 1;
             $graph_order_extinfo = " iowait irq softirq";
         } else {
-            ( $user, $nice, $system, $idle ) = m/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/;
+            ( $user, $nice, $system, $idle ) = /^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/;
             $graph_order_extinfo = "";
         }
     }
