@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Thursday 13 June 2024, 12:48
-# Edit Time: 2:52:02
+# Last Modified: Thursday 13 June 2024, 15:32
+# Edit Time: 2:53:11
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -27,7 +27,7 @@ define Package/muninwrt
   SECTION:=utils
   CATEGORY:=Utilities
   PKGARCH:=all
-  DEPENDS:=+xinetd +perl +perlbase-getopt
+  DEPENDS:=+xinetd +perl +perlbase-getopt +perlbase-file
   TITLE:=Munin node for OpenWRT implemented in perl like pmmn
   URL:=https://github.com/czodroid/muninwrt
 endef
@@ -57,7 +57,7 @@ define Package/muninwrt/install
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth0       $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth1       $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_eth0           $(1)/etc/munin/plugins/
-	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_eth1           $(1)/etc/munin/plugins/
+	$(INSTALL_LN)  ./files/etc/munin/plugins/if_eth0           $(1)/etc/munin/plugins/if_eth1
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/interrupts        $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/irqstats          $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/load              $(1)/etc/munin/plugins/
