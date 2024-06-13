@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Thursday 13 June 2024, 17:08
-# Edit Time: 2:53:25
+# Last Modified: Thursday 13 June 2024, 17:09
+# Edit Time: 2:54:10
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -54,10 +54,10 @@ define Package/muninwrt/install
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/forks             $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_br-lan         $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_br-lan     $(1)/etc/munin/plugins/
-	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth0       $(1)/etc/munin/plugins/
-	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth1       $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_eth0           $(1)/etc/munin/plugins/
-	$(INSTALL_LN)  ./files/etc/munin/plugins/if_eth0           $(1)/etc/munin/plugins/if_eth1
+	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth0       $(1)/etc/munin/plugins/
+	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_eth1           $(1)/etc/munin/plugins/
+	$(INSTALL_BIN)  ./files/etc/munin/plugins/if_err_eth1       $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/interrupts        $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/irqstats          $(1)/etc/munin/plugins/
 	$(INSTALL_BIN)  ./files/etc/munin/plugins/load              $(1)/etc/munin/plugins/
