@@ -1,0 +1,57 @@
+#! /usr/bin/env perl
+#
+# Filename: interrupts
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: interrupts,v 1.5 2024/06/10 02:21:25 czo Exp $
+# Edit Time: 7:11:56
+# Description:
+#
+#           Munin plugin
+#           monitor the number of interrupts
+#           and context switches on a system
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+##===================================================================##
+## Main
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Interrupts & context switches
+graph_args --base 1000 -l 0
+graph_vlabel interrupts & ctx switches / \${graph_period}
+graph_category system
+graph_info This graph shows the number of interrupts and context switches on the system. These are typically high on a busy system.
+intr.info Interrupts are events that alter sequence of instructions executed by a processor. They can come from either hardware (exceptions, NMI, IRQ) or software.
+ctx.info A context switch occurs when a multitasking operatings system suspends the currently running process, and starts executing another.
+intr.label interrupts
+ctx.label context switches
+intr.type DERIVE
+ctx.type DERIVE
+intr.max 100000
+ctx.max 100000
+intr.min 0
+ctx.min 0
+EOT
+    exit 0;
+}
+
+$file = '/proc/stat';
+open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+while (<FILE>) {
+    chomp;
+    if (/^ctxt\s+([0-9.]+)/) {$ctx=$1}
+    if (/^intr\s+([0-9.]+)/) {$intr=$1}
+}
+print "ctx.value $ctx\n";
+print "intr.value $intr\n";
+
+close FILE;
+
+__END__

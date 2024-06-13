@@ -1,0 +1,146 @@
+#! /usr/bin/env perl
+#
+# Filename: munin-pmmn
+# ModAuthor: Olivier Sirol <czo@free.fr>
+# File Created: 20 April 2014
+# Last Modified: Thursday 13 June 2024, 12:04
+# Description:
+#
+#       A poor man's Munin node that only
+#       uses Getopt::Long as a module
+#
+# Copyright: (C) 2014-2024 Olivier Sirol <czo@free.fr>
+#
+# Poor man's Munin Node
+# Usable with as little as Perl 5 core
+# (c) 2012 LGPL - Steve Schnepp <steve.schnepp@pwkf.org>
+
+use warnings;
+use strict;
+
+# use Carp;
+# use Data::Dumper;
+# use Pod::Usage;
+use Getopt::Long;
+
+$| = 1;
+
+my $VERSION = "0.0.7";
+
+# Default is stdin/stdout
+my $port;
+my $verbose;
+my $host;
+
+# my $pmmn_dir = "/home/tc/munin";
+# my $pmmn_dir = "/Users/czo/Desktop/dev/munin";
+my $pmmn_dir   = "/etc/munin";
+my $plugin_dir = $pmmn_dir . "/plugins";
+my $spoolfetch_dir;
+
+sub help {
+    print <<EOT;
+munin-pmmn - Poor man's Munin Node
+
+Options:
+
+    --port            Port to listen to (default is stdin/stdout)
+    --verbose         Verbose mode
+    --plugin-dir      Plugin directory (default is current dir)
+    --host            Host name (default is /bin/hostname)
+    --spoolfetch-dir  Spoolfetch plugin dirs (default is disabled)
+    --help            Brief help message
+    --man             Full documentation
+EOT
+    exit 1;
+}
+
+{
+    my $man  = 0;
+    my $help = 0;
+
+    GetOptions(
+        'port|p=i'       => \$port,
+        'verbose|v'      => \$verbose,
+        'plugin-dir|d=s' => \$plugin_dir,
+        'host|h=s'       => \$host,
+        'spoolfetch-dir|s=s' => \$spoolfetch_dir,
+        'help|?' => \$help,
+        man      => \$man,
+    # ) or pod2usage(2);
+    ) or exit(1);
+
+    # pod2usage(1)                                 if $help;
+    help()                                 if $help;
+    # pod2usage( -exitstatus => 0, -verbose => 2 ) if $man;
+
+## plugins/plugin.sh and Munin/Plugin.pm for plugins
+# export MUNIN_LIBDIR=/etc/munin
+# export PERL5LIB=/etc/munin
+    $ENV{'MUNIN_LIBDIR'} = $pmmn_dir;
+    $ENV{'PERL5LIB'}     = $pmmn_dir;
+}
+
+# Handle $port
+if ($port) {
+    die("--port is not yet supported");
+}
+
+# $host ||= `hostname`;
+$host ||= `uname -n`;
+chomp($host);
+print "# munin node at $host\n";
+while ( my $line = <> ) {
+
+    #chomp($line);
+    $line =~ s,\r,,;
+    $line =~ s,\n,,;
+    my ( $cmd, $arg ) = split( / /, $line, 2 );
+    $arg ||= "";
+    my $plugin_filename = $plugin_dir . "/" . $arg;
+    if ( !$cmd ) { next; }
+    if ( $cmd eq "version" ) {
+        print "munins node on $host version: $VERSION";
+        next;
+    } elsif ( $cmd eq "nodes" ) {
+        print "$host\n";
+        print ".";
+        next;
+    } elsif ( $cmd eq "quit" ) {
+        exit(0);
+    } elsif ( $cmd eq "list" ) {
+        opendir( PLUGIN_DIR, $plugin_dir ) or die("cannot open: $@");
+        while ( my $plugin = readdir(PLUGIN_DIR) ) {
+            chomp($plugin);
+            if ( $plugin =~ m/^\./ ) { next; }
+            next unless ( -x "$plugin_dir/$plugin" );
+            print "$plugin ";
+        }
+        closedir(PLUGIN_DIR);
+        next;
+    } elsif ( $cmd eq "config" || $cmd eq "alert" || $cmd eq "fetch" ) {
+        if ( -d $plugin_filename || !-x $plugin_filename ) {
+            print "# Unknown plugin [$arg] for $cmd";
+            next;
+        }
+        my $arg_plugin = ( $cmd eq "fetch" ) ? "" : $cmd;
+        system( $plugin_filename, $arg_plugin );
+        print ".";
+        next;
+    } elsif ( $cmd eq "cap" ) {
+        print "cap ";
+        print "spool " if $spoolfetch_dir;
+        next;
+    } elsif ( $cmd eq "spoolfetch" && $spoolfetch_dir ) {
+        system( "$spoolfetch_dir/spoolfetch_$host", $arg );
+        print ".";
+        next;
+    }
+
+    # Arriving here is not a good sign
+    print "# Unknown command. Try list, nodes, config, fetch, version, alert or quit";
+} continue {
+    print "\n";
+}
+
+__END__

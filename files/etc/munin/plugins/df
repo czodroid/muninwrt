@@ -1,0 +1,125 @@
+#! /usr/bin/env perl
+#
+# Filename: df
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: df,v 1.7 2024/06/11 19:51:30 czo Exp $
+# Edit Time: 3:13:21
+# Description:
+#
+#           Munin plugin
+#           monitor disk usage in percent
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+use strict;
+use warnings;
+
+## Exclude name or mountpoint or type
+# debian
+# my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
+# openwrt
+my $exclude = 'overlayfs:|mtdblock|tmpfs|nfs';
+## For these devices use the mount point, the device is useless
+my %usemntpt = ( tmpfs => 1, none => 1, udev => 1, simfs => 1 );
+my %dfh;
+my $warning  = 92;
+my $critical = 98;
+
+##===================================================================##
+## Function
+
+sub clean_fieldname ($) {
+    my $name = shift;
+    $name =~ s/^[^A-Za-z_]+/_/;
+    $name =~ s/[^A-Za-z0-9_]/_/g;
+    $name = "__root" if $name eq "root";
+    return $name;
+}
+
+sub kilo {
+    my $kilo;
+    my $SizeInByte;
+    my $SizeInKilo;
+    my $SizeInMeg;
+    my $SizeInGig;
+    my $SizeInTB;
+
+    ($SizeInByte) = @_;
+    $SizeInKilo = sprintf( "%.0f", $SizeInByte / 1024.0 );
+    $SizeInMeg  = sprintf( "%.0f", $SizeInByte / 1024.0 / 1024 );
+    $SizeInGig  = sprintf( "%.1f", $SizeInByte / 1024.0 / 1024 / 1024 );
+    $SizeInTB   = sprintf( "%.1f", $SizeInByte / 1024.0 / 1024 / 1024 / 1024 );
+
+    if ( $SizeInKilo < 1000 ) {
+        $kilo = $SizeInKilo . " KB";
+    } else {
+        if ( $SizeInMeg < 1000 ) {
+            $kilo = $SizeInMeg . " MB";
+        } else {
+            if ( $SizeInGig < 1000 ) {
+                $kilo = $SizeInGig . " GB";
+            } else {
+                $kilo = $SizeInTB . " TB";
+            }
+        }
+    }
+    return $kilo;
+}
+
+##===================================================================##
+## Main
+
+## df:
+# -P: posix
+# -T: print the filesytem type
+# -k: use 1k blocks (freeBSD uses 512 blocks)
+my $headerline = 1;
+foreach (qx(df -P -T -k)) {
+    chomp;
+    if ($headerline) { $headerline = 0; next; }
+    my ( $name, $type, $size, $used, $avail, $cap, $mountpt ) = split( /\s+/, $_, 7 );
+    ## print "$name, $type, $size, $used, $avail, $cap, $mountpt\n";
+    next if ( $name =~ $exclude or $mountpt =~ $exclude or $type =~ $exclude );
+
+    $name = $mountpt if defined( $usemntpt{$name} ) && $usemntpt{$name};
+    $name = clean_fieldname($name);
+
+    $dfh{$name}{type}    = $type;
+    $dfh{$name}{size}    = $size;
+    $dfh{$name}{used}    = $used;
+    $dfh{$name}{avail}   = $avail;
+    $dfh{$name}{cap}     = $cap;
+    $dfh{$name}{mountpt} = $mountpt;
+}
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Disk usage (in %)
+graph_category disk
+graph_vlabel %
+graph_args --upper-limit 100 -l 0
+graph_scale no
+graph_info This graph lets you monitor disk usage in percent
+EOT
+
+    foreach my $df ( sort { {%dfh}->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt} } keys %dfh ) {
+        print "$df.label $dfh{$df}{mountpt}\n";
+        print "$df.info Max size: " . kilo( $dfh{$df}{size} * 1024 ) . "\n";
+        if ( $dfh{$df}{mountpt} ne '/rom' ) {
+            print "$df.warning $warning\n";
+            print "$df.critical $critical\n";
+        }
+    }
+    exit 0;
+}
+
+foreach my $df ( sort { {%dfh}->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt} } keys %dfh ) {
+    my $ps = 0;
+    $ps = ( $dfh{$df}{used} / ( $dfh{$df}{used} + $dfh{$df}{avail} ) ) * 100 if $dfh{$df}{used};
+    print "$df.value $ps\n";
+}
+
+__END__

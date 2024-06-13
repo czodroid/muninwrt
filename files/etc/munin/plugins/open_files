@@ -1,0 +1,59 @@
+#! /usr/bin/env perl
+#
+# Filename: open_files
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: open_files,v 1.2 2024/06/10 02:59:21 czo Exp $
+# Edit Time: 7:23:16
+# Description:
+#
+#           Munin plugin
+#           monitor the number of open files in the system
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+$warning  = 92;
+$critical = 98;
+
+##===================================================================##
+## Main
+
+# https://www.kernel.org/doc/Documentation/sysctl/fs.txt
+$file = '/proc/sys/fs/file-nr';
+open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+while (<FILE>) {
+    chomp;
+    if (/([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)/) {
+        $nfh    = $1;
+        $nufh   = $2;
+        $nmaxfh = $3;
+    }
+}
+close FILE;
+
+$warning  = int( $nmaxfh * $warning / 100 );
+$critical = int( $nmaxfh * $critical / 100 );
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title File table usage
+graph_args --base 1000 -l 0
+graph_vlabel number of open files
+graph_category system
+graph_info This graph monitors the Linux open files table.
+used.label open files
+used.info The number of currently open files.
+used.warning $warning
+used.critical $critical
+EOT
+    exit 0;
+}
+
+print "used.value " . ( $nfh - $nufh ) . "\n";
+
+__END__

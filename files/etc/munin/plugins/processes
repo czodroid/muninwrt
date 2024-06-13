@@ -1,0 +1,42 @@
+#! /usr/bin/env perl
+#
+# Filename: processes
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: processes,v 1.3 2024/06/10 01:25:06 czo Exp $
+# Edit Time: 7:25:14
+# Description:
+#
+#           Munin plugin
+#           monitor load average
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+##===================================================================##
+## Main
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Number of Processes
+graph_args --base 1000 -l 0
+graph_vlabel number of processes
+graph_category processes
+graph_info This graph shows the number of processes in the system.
+processes.label processes
+processes.info The current number of processes.
+EOT
+    exit 0;
+}
+
+# $nbproc = () = glob("/proc/[0-9]*");
+# print "processes.value $nbproc\n";
+
+@nbproc = glob("/proc/[0-9]*");
+print "processes.value $#nbproc\n";
+
+__END__

@@ -1,0 +1,46 @@
+#! /usr/bin/env perl
+#
+# Filename: uptime
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: uptime,v 1.3 2024/06/09 16:25:11 czo Exp $
+# Edit Time: 7:01:51
+# Description:
+#
+#           Munin plugin
+#           Plugin to measure uptime.
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+##===================================================================##
+## Main
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Uptime
+graph_args --base 1000 -l 0
+graph_vlabel uptime in days
+graph_category system
+uptime.label uptime
+uptime.draw AREA
+uptime.info Uptime of this host
+EOT
+    exit 0;
+}
+
+$file = '/proc/uptime';
+open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+# 407796.11 600573.58
+while (<FILE>) {
+    chomp;
+    ($uptime) = /^([0-9.]+)/;
+    printf "uptime.value %.2f\n",$uptime/86400;
+}
+close FILE;
+
+__END__

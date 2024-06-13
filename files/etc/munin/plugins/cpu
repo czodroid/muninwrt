@@ -1,0 +1,124 @@
+#! /usr/bin/env perl
+#
+# Filename: cpu
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: cpu,v 1.6 2024/06/12 20:41:03 czo Exp $
+# Edit Time: 6:41:44
+# Description:
+#
+#           Munin plugin
+#           monitor cpu usage
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+$warning    = 30;
+$critical   = 50;
+$usrwarning = 80;
+
+##===================================================================##
+## Main
+
+$file = '/proc/stat';
+open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+while (<FILE>) {
+    chomp;
+    if (/^cpu\s/) {
+        if ( ( $user, $nice, $system, $idle, $iowait, $irq, $softirq ) = m/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/ ) {
+            $extinfo             = 1;
+            $graph_order_extinfo = " iowait irq softirq";
+        } else {
+            ( $user, $nice, $system, $idle ) = m/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/;
+            $graph_order_extinfo = "";
+        }
+    }
+    if (/^cpu[0-9]\s/) { $ncpu++ }
+}
+close FILE;
+
+$graphlimit = $ncpu * 100;
+$warning    = $ncpu * $warning;
+$critical   = $ncpu * $critical;
+$usrwarning = $ncpu * $usrwarning;
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title CPU usage
+graph_category system
+graph_vlabel %
+graph_order system user nice idle $graph_order_extinfo
+graph_order system user nice idle iowait irq softirq
+graph_args --base 1000 -r --lower-limit 0 --upper-limit $graphlimit
+graph_scale no
+graph_info This graph shows how CPU time is spent.
+graph_period second
+system.label system
+system.draw AREA
+system.max 5000
+system.min 0
+system.type DERIVE
+system.warning $warning
+system.critical $critical
+system.info CPU time spent by the kernel in system activities
+user.label user
+user.draw STACK
+user.min 0
+user.max 5000
+user.warning $usrwarning
+user.type DERIVE
+user.info CPU time spent by normal programs and daemons
+nice.label nice
+nice.draw STACK
+nice.min 0
+nice.max 5000
+nice.type DERIVE
+nice.info CPU time spent by nice(1)d programs
+idle.label idle
+idle.draw STACK
+idle.min 0
+idle.max 5000
+idle.type DERIVE
+idle.info Idle CPU time
+EOT
+
+    if ( defined $extinfo ) {
+        print <<EOT;
+iowait.label iowait
+iowait.draw STACK
+iowait.min 0
+iowait.max 5000
+iowait.type DERIVE
+iowait.info CPU time spent waiting for I/O operations to finish
+irq.label irq
+irq.draw STACK
+irq.min 0
+irq.max 5000
+irq.type DERIVE
+irq.info CPU time spent handling interrupts
+softirq.label softirq
+softirq.draw STACK
+softirq.min 0
+softirq.max 5000
+softirq.type DERIVE
+softirq.info CPU time spent handling 'batched' interrupts
+EOT
+    }
+    exit 0;
+}
+
+print "user.value $user\n";
+print "nice.value $nice\n";
+print "system.value $system\n";
+print "idle.value $idle\n";
+if ( defined $extinfo ) {
+    print "iowait.value $iowait\n";
+    print "irq.value $irq\n";
+    print "softirq.value $softirq\n";
+}
+
+__END__

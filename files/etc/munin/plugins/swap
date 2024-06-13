@@ -1,0 +1,58 @@
+#! /usr/bin/env perl
+#
+# Filename: swap
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 Dec 2019
+# Last Modified: Thursday 13 June 2024, 12:33
+# $Id: swap,v 1.5 2024/06/12 10:31:12 czo Exp $
+# Edit Time: 7:04:19
+# Description:
+#
+#           Munin plugin
+#           monitor swap IO in number of blocks per second
+#
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+##===================================================================##
+## Main
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Swap in/out
+graph_args -l 0 --base 1000
+graph_vlabel pages per \${graph_period} in (-) / out (+)
+graph_category system
+swap_in.label swap
+swap_in.type DERIVE
+swap_in.max 100000
+swap_in.min 0
+swap_in.graph no
+swap_out.label swap
+swap_out.type DERIVE
+swap_out.max 100000
+swap_out.min 0
+swap_out.negative swap_in
+EOT
+    exit 0;
+}
+
+# /proc/vmstat since 2.6.18 ?
+$swap_in='U';
+$swap_out='U';
+$file = '/proc/vmstat';
+open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+while (<FILE>) {
+    chomp;
+    if (/pswpin\s+([0-9.]+)/) {$swap_in=$1}
+    if (/pswpout\s+([0-9.]+)/) {$swap_out=$1}
+}
+print "swap_in.value $swap_in\n";
+print "swap_out.value $swap_out\n";
+
+close FILE;
+
+__END__
