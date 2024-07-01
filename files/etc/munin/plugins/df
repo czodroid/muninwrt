@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Tuesday 18 June 2024, 21:38
+# Last Modified: Monday 01 July 2024, 10:31
 # $Id: df,v 1.4 2024/06/13 12:52:39 czo Exp $
-# Edit Time: 3:17:52
+# Edit Time: 3:18:52
 # Description:
 #
 #           Munin plugin
@@ -21,6 +21,7 @@ use warnings;
 my $warning;
 my $critical;
 
+## use or comment
 # $warning  = 92;
 # $critical = 98;
 
@@ -110,13 +111,7 @@ graph_scale no
 graph_info This graph lets you monitor disk usage in percent
 EOT
 
-    foreach my $df (
-        sort {
-            { %dfh }
-            ->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt}
-        } keys %dfh
-      )
-    {
+    foreach my $df ( sort keys %dfh ) {
         print "$df.label $dfh{$df}{mountpt}\n";
         print "$df.info Max size: " . kilo( $dfh{$df}{size} * 1024 ) . "\n";
         if ( defined $warning ) {
@@ -129,13 +124,7 @@ EOT
     exit 0;
 }
 
-foreach my $df (
-    sort {
-        { %dfh }
-        ->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt}
-    } keys %dfh
-  )
-{
+foreach my $df ( sort keys %dfh ) {
     my $ps = 0;
     $ps = ( $dfh{$df}{used} / ( $dfh{$df}{used} + $dfh{$df}{avail} ) ) * 100 if $dfh{$df}{used};
     print "$df.value $ps\n";

@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Monday 17 June 2024, 19:46
+# Last Modified: Monday 01 July 2024, 10:31
 # $Id: dfabs,v 1.4 2024/06/11 19:39:03 czo Exp $
-# Edit Time: 3:11:43
+# Edit Time: 3:15:14
 # Description:
 #
 #           Munin plugin
@@ -17,8 +17,12 @@
 use strict;
 use warnings;
 
-my $warning  = 92;
-my $critical = 98;
+my $warning;
+my $critical;
+
+## use or comment
+$warning  = 92;
+$critical = 98;
 
 ## Exclude name or mountpoint or type
 # debian
@@ -105,7 +109,7 @@ graph_args --base 1024 --lower-limit 0
 graph_info This graph lets you monitor absolute disk usage in bytes
 EOT
 
-    foreach my $df ( sort { {%dfh}->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt} } keys %dfh ) {
+    foreach my $df ( sort keys %dfh ) {
         print "$df.label $dfh{$df}{mountpt}\n";
         print "$df.cdef $df,1024,*\n";
         print "$df.info Max size: " . kilo( $dfh{$df}{size} * 1024 ) . "\n";
@@ -117,7 +121,7 @@ EOT
     exit 0;
 }
 
-foreach my $df ( sort { {%dfh}->{$a}{mountpt} cmp {%dfh}->{$b}{mountpt} } keys %dfh ) {
+foreach my $df ( sort keys %dfh ) {
     print "$df.value " . int( $dfh{$df}{used} ) . "\n" if $dfh{$df}{used};
 }
 
