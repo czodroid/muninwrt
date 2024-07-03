@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Monday 01 July 2024, 10:31
+# Last Modified: Wednesday 03 July 2024, 19:43
 # $Id: df,v 1.4 2024/06/13 12:52:39 czo Exp $
-# Edit Time: 3:18:52
+# Edit Time: 3:19:49
 # Description:
 #
 #           Munin plugin
@@ -103,7 +103,7 @@ foreach (qx(df -P -T -k)) {
 
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
     print <<EOT;
-graph_title Disk usage (in %)
+graph_title Disk usage (in percent)
 graph_category disk
 graph_vlabel %
 graph_args --upper-limit 100 -l 0
