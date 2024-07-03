@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Thursday 13 June 2024, 17:04
+# Last Modified: Wednesday 03 July 2024, 19:35
 # $Id: processes,v 1.5 2024/06/13 13:18:33 czo Exp $
-# Edit Time: 7:36:05
+# Edit Time: 7:37:18
 # Description:
 #
 #           Munin plugin
@@ -34,12 +34,12 @@ EOT
 }
 
 ## glob module may not be present...
-@nbproc = glob("/proc/[0-9]*");
-print "processes.value $#nbproc\n";
+# @nbproc = glob("/proc/[0-9]*");
+# print "processes.value $#nbproc\n";
 
-# $nbproc = qx(echo /proc/[0-9]* | wc -w);
-# chomp $nbproc ;
-# print "processes.value $nbproc\n";
+$nbproc = qx(echo /proc/[0-9]* | wc -w);
+chomp $nbproc ;
+print "processes.value $nbproc\n";
 
 __END__
 
