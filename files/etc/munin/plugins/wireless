@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 19 June 2024, 17:44
+# Last Modified: Tuesday 03 September 2024, 15:24
 # $Id: if_eth0,v 1.5 2024/06/12 14:43:40 czo Exp $
-# Edit Time: 14:13:09
+# Edit Time: 14:24:38
 # Description:
 #
 #           Munin plugin for if_[wildcard]
@@ -26,6 +26,8 @@
 
 # use strict;
 use warnings;
+
+## No warning or critical
 
 ##===================================================================##
 ## Function

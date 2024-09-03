@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Saturday 06 July 2024, 15:34
+# Last Modified: Tuesday 03 September 2024, 15:20
 # $Id: memory,v 1.8 2024/07/06 14:28:35 czo Exp $
-# Edit Time: 11:04:33
+# Edit Time: 11:12:05
 # Description:
 #
 #           Munin plugin
@@ -16,6 +16,8 @@
 
 # use strict;
 use warnings;
+
+## No warning or critical
 
 ##===================================================================##
 ## Main

@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 17:03
+# Last Modified: Tuesday 03 September 2024, 15:29
 # $Id: cpu,v 1.6 2024/06/12 20:41:03 czo Exp $
-# Edit Time: 6:41:58
+# Edit Time: 6:57:09
 # Description:
 #
 #           Munin plugin
@@ -17,6 +17,7 @@
 # use strict;
 use warnings;
 
+## use or comment
 $warning    = 30;
 $critical   = 50;
 $usrwarning = 80;
@@ -42,9 +43,6 @@ while (<FILE>) {
 close FILE;
 
 $graphlimit = $ncpu * 100;
-$warning    = $ncpu * $warning;
-$critical   = $ncpu * $critical;
-$usrwarning = $ncpu * $usrwarning;
 
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
     print <<EOT;
@@ -62,14 +60,11 @@ system.draw AREA
 system.max 5000
 system.min 0
 system.type DERIVE
-system.warning $warning
-system.critical $critical
 system.info CPU time spent by the kernel in system activities
 user.label user
 user.draw STACK
 user.min 0
 user.max 5000
-user.warning $usrwarning
 user.type DERIVE
 user.info CPU time spent by normal programs and daemons
 nice.label nice
@@ -85,6 +80,17 @@ idle.max 5000
 idle.type DERIVE
 idle.info Idle CPU time
 EOT
+
+    $warning    = $ncpu * $warning;
+    $critical   = $ncpu * $critical;
+    $usrwarning = $ncpu * $usrwarning;
+    if ( defined $warning ) {
+        print <<EOT;
+system.warning $warning
+system.critical $critical
+user.warning $usrwarning
+EOT
+    }
 
     if ( defined $extinfo ) {
         print <<EOT;

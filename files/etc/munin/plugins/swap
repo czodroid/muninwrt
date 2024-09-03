@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 12:33
+# Last Modified: Tuesday 03 September 2024, 15:24
 # $Id: swap,v 1.5 2024/06/12 10:31:12 czo Exp $
-# Edit Time: 7:04:19
+# Edit Time: 7:15:31
 # Description:
 #
 #           Munin plugin
@@ -16,6 +16,8 @@
 
 # use strict;
 use warnings;
+
+## No warning or critical
 
 ##===================================================================##
 ## Main

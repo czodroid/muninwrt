@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 12:33
+# Last Modified: Tuesday 03 September 2024, 15:19
 # $Id: interrupts,v 1.5 2024/06/10 02:21:25 czo Exp $
-# Edit Time: 7:11:56
+# Edit Time: 7:18:38
 # Description:
 #
 #           Munin plugin
@@ -17,6 +17,8 @@
 
 # use strict;
 use warnings;
+
+## No warning or critical
 
 ##===================================================================##
 ## Main

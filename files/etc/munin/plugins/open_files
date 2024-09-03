@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 12:33
+# Last Modified: Tuesday 03 September 2024, 15:34
 # $Id: open_files,v 1.2 2024/06/10 02:59:21 czo Exp $
-# Edit Time: 7:23:16
+# Edit Time: 7:44:36
 # Description:
 #
 #           Munin plugin
@@ -17,6 +17,7 @@
 # use strict;
 use warnings;
 
+## use or comment
 $warning  = 92;
 $critical = 98;
 
@@ -36,9 +37,6 @@ while (<FILE>) {
 }
 close FILE;
 
-$warning  = int( $nmaxfh * $warning / 100 );
-$critical = int( $nmaxfh * $critical / 100 );
-
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
     print <<EOT;
 graph_title File table usage
@@ -48,9 +46,15 @@ graph_category system
 graph_info This graph monitors the Linux open files table.
 used.label open files
 used.info The number of currently open files.
+EOT
+    if ( defined $warning ) {
+        $warning  = int( $nmaxfh * $warning / 100 );
+        $critical = int( $nmaxfh * $critical / 100 );
+        print <<EOT;
 used.warning $warning
 used.critical $critical
 EOT
+    }
     exit 0;
 }
 

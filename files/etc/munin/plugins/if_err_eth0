@@ -1,12 +1,12 @@
 #! /usr/bin/env perl
 #
-# Filename: if_err_eth0
+# Filename: if_err_br-lan
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 13 June 2024, 12:33
+# Last Modified: Tuesday 03 September 2024, 15:33
 # $Id: if_err_eth0,v 1.5 2024/06/12 20:21:39 czo Exp $
-# Edit Time: 8:50:37
+# Edit Time: 9:10:32
 # Description:
 #
 #           Munin plugin for if_[wildcard]
@@ -16,6 +16,10 @@
 
 # use strict;
 use warnings;
+
+## use or comment
+$warning = 1;
+## No critical
 
 ##===================================================================##
 ## Main
@@ -35,11 +39,9 @@ graph_info This graph shows the amount of errors, packet drops, and collisions o
 rcvd.label errors
 rcvd.type COUNTER
 rcvd.graph no
-rcvd.warning 1
 trans.label errors
 trans.type COUNTER
 trans.negative rcvd
-trans.warning 1
 rxdrop.label drops
 rxdrop.type COUNTER
 rxdrop.graph no
@@ -49,6 +51,12 @@ txdrop.negative rxdrop
 collisions.label collisions
 collisions.type COUNTER
 EOT
+    if ( defined $warning ) {
+        print <<EOT;
+rcvd.warning $warning
+trans.warning $warning
+EOT
+    }
     exit 0;
 }
 
