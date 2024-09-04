@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:37
-# $Id: cpu,v 1.6 2024/06/12 20:41:03 czo Exp $
-# Edit Time: 6:58:03
+# Last Modified: Wednesday 04 September 2024, 10:49
+# $Id: cpu,v 1.42 2024/09/04 10:49:35 czo Git $
+# Edit Time: 6:58:15
 # Description:
 #
 #           Munin plugin

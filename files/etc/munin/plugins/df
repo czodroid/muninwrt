@@ -4,14 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Tuesday 03 September 2024, 15:30
-# $Id: df,v 1.4 2024/06/13 12:52:39 czo Exp $
-# Edit Time: 3:20:07
+# Last Modified: Wednesday 04 September 2024, 10:53
+# $Id: df,v 1.42 2024/09/04 10:53:51 czo Git $
+# Edit Time: 3:21:20
 # Description:
 #
 #           Munin plugin
 #           monitor disk usage in percent
-#           with no warning or critical
 #
 # Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
 

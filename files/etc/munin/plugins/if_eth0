@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Tuesday 03 September 2024, 15:19
-# $Id: if_eth0,v 1.5 2024/06/12 14:43:40 czo Exp $
-# Edit Time: 8:41:09
+# Last Modified: Wednesday 04 September 2024, 10:50
+# $Id: if_br-lan,v 1.42 2024/09/04 10:50:28 czo Git $
+# Edit Time: 8:42:14
 # Description:
 #
 #           Munin plugin for if_[wildcard]

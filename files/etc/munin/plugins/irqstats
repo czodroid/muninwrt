@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Tuesday 03 September 2024, 15:20
-# $Id: irqstats,v 1.8 2024/07/06 23:05:11 czo Exp $
-# Edit Time: 17:21:49
+# Last Modified: Wednesday 04 September 2024, 10:51
+# $Id: irqstats,v 1.42 2024/09/04 10:51:02 czo Git $
+# Edit Time: 17:23:28
 # Description:
 #
 #           Munin plugin
