@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Tuesday 03 September 2024, 15:20
+# Last Modified: Wednesday 04 September 2024, 10:37
 # $Id: memory,v 1.8 2024/07/06 14:28:35 czo Exp $
-# Edit Time: 11:12:05
+# Edit Time: 11:13:06
 # Description:
 #
 #           Munin plugin
@@ -65,6 +65,7 @@ cached.draw STACK
 cached.info Parked file data (file content) cache.
 free.label unused
 free.draw STACK
+free.colour b3e1ae
 free.info Wasted memory. Memory that is not used for anything at all.
 EOT
 
