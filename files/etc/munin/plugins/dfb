@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:50
-# $Id: dfb,v 1.42 2024/09/04 10:50:06 czo Git $
-# Edit Time: 3:15:57
+# Last Modified: Thursday 05 September 2024, 14:27
+# $Id: dfb,v 1.42 2024/09/05 14:27:43 czo Git $
+# Edit Time: 3:19:59
 # Description:
 #
 #           Munin plugin
@@ -32,6 +32,7 @@ my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs';
 ## For these devices use the mount point, the device is useless
 my %usemntpt = ( tmpfs => 1, none => 1, udev => 1, simfs => 1 );
 my %dfh;
+my $max;
 
 ##===================================================================##
 ## Function
@@ -98,6 +99,8 @@ foreach (qx(df -P -T -k)) {
     $dfh{$name}{avail}   = $avail;
     $dfh{$name}{cap}     = $cap;
     $dfh{$name}{mountpt} = $mountpt;
+
+    $max = ( $size * 1024 ) if $max < ( $size * 1024 );
 }
 
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
@@ -105,7 +108,7 @@ if ( $ARGV[0] and $ARGV[0] eq "config" ) {
 graph_title Disk usage (in bytes)
 graph_category disk
 graph_vlabel bytes
-graph_args --base 1024 --lower-limit 0
+graph_args --base 1024 --lower-limit 0 --upper-limit $max
 graph_info This graph lets you monitor absolute disk usage in bytes
 EOT
 
