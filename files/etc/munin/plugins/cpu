@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:49
-# $Id: cpu,v 1.42 2024/09/04 10:49:35 czo Git $
-# Edit Time: 6:58:15
+# Last Modified: Thursday 05 September 2024, 18:08
+# $Id: cpu,v 1.42 2024/09/05 18:08:37 czo Git $
+# Edit Time: 6:59:47
 # Description:
 #
 #           Munin plugin
@@ -112,6 +112,7 @@ softirq.draw STACK
 softirq.min 0
 softirq.max 5000
 softirq.type DERIVE
+softirq.colour cc0000
 softirq.info CPU time spent handling 'batched' interrupts
 EOT
     }
