@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 05 September 2024, 18:08
-# $Id: cpu,v 1.42 2024/09/05 18:08:37 czo Git $
-# Edit Time: 6:59:47
+# Last Modified: Thursday 05 September 2024, 18:33
+# $Id: cpu,v 1.42 2024/09/05 18:33:59 czo Git $
+# Edit Time: 7:00:00
 # Description:
 #
 #           Munin plugin
@@ -38,7 +38,7 @@ while (<FILE>) {
             $graph_order_extinfo = "";
         }
     }
-    if (/^cpu[0-9]\s/) { $ncpu++ }
+    if (/^cpu[0-9]+\s/) { $ncpu++ }
 }
 close FILE;
 
