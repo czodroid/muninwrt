@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 05 September 2024, 14:27
-# $Id: dfb,v 1.42 2024/09/05 14:27:43 czo Git $
-# Edit Time: 3:19:59
+# Last Modified: Thursday 05 September 2024, 19:24
+# $Id: dfb,v 1.42 2024/09/05 19:24:06 czo Git $
+# Edit Time: 3:21:23
 # Description:
 #
 #           Munin plugin
@@ -115,7 +115,7 @@ EOT
     foreach my $df ( sort keys %dfh ) {
         print "$df.label $dfh{$df}{mountpt}\n";
         print "$df.cdef $df,1024,*\n";
-        print "$df.info Max size: " . kilo( $dfh{$df}{size} * 1024 ) . "\n";
+        print "$df.info Max size: " . kilo( $dfh{$df}{size} * 1024 ) . " (" . $dfh{$df}{size} . " KB)\n";
         if ( $dfh{$df}{mountpt} ne '/rom' ) {
             print "$df.warning " . int( $dfh{$df}{size} * $warning / 100 ) . "\n";
             print "$df.critical " . int( $dfh{$df}{size} * $critical / 100 ) . "\n";
