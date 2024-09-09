@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Thursday 05 September 2024, 19:24
-# $Id: dfb,v 1.42 2024/09/05 19:24:06 czo Git $
-# Edit Time: 3:21:23
+# Last Modified: Monday 09 September 2024, 11:31
+# $Id: dfb,v 1.42 2024/09/09 11:31:00 czo Git $
+# Edit Time: 3:22:24
 # Description:
 #
 #           Munin plugin
@@ -28,11 +28,11 @@ $critical = 98;
 # debian
 # my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
 # openwrt
-my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs';
+my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs|\/snap\/';
 ## For these devices use the mount point, the device is useless
 my %usemntpt = ( tmpfs => 1, none => 1, udev => 1, simfs => 1 );
 my %dfh;
-my $max;
+my $max = 0;
 
 ##===================================================================##
 ## Function

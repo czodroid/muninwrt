@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Wednesday 04 September 2024, 10:51
-# $Id: memory,v 1.42 2024/09/04 10:51:13 czo Git $
-# Edit Time: 11:14:56
+# Last Modified: Monday 09 September 2024, 11:30
+# $Id: memory,v 1.42 2024/09/09 11:30:03 czo Git $
+# Edit Time: 11:15:28
 # Description:
 #
 #           Munin plugin
@@ -115,7 +115,8 @@ EOT
     }
     if ( defined $m{'Inactive'} ) {
         print "inactive.label inactive\n";
-        print "inactive.draw LINE2\n";
+        print "inactive.draw LINE1\n";
+        print "inactive.colour b30000\n";
         print "inactive.info Memory not currently used.\n";
     }
     if ( defined $m{'Inact_dirty'} ) {
