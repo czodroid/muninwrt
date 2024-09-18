@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 18 September 2024, 14:21
-# $Id: load,v 1.42 2024/09/18 14:21:44 czo Git $
-# Edit Time: 7:19:44
+# Last Modified: Wednesday 18 September 2024, 15:36
+# $Id: load,v 1.42 2024/09/18 15:36:04 czo Git $
+# Edit Time: 7:22:25
 # Description:
 #
 #           Munin plugin
@@ -19,7 +19,7 @@ use warnings;
 
 ## use or comment
 $warning  = 10;
-$critical = 120;
+$critical = 50;
 
 ##===================================================================##
 ## Main

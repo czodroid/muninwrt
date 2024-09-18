@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 18 September 2024, 14:22
-# $Id: cpu,v 1.42 2024/09/18 14:22:08 czo Git $
-# Edit Time: 7:08:33
+# Last Modified: Wednesday 18 September 2024, 15:36
+# $Id: cpu,v 1.42 2024/09/18 15:36:07 czo Git $
+# Edit Time: 7:10:49
 # Description:
 #
 #           Munin plugin
@@ -18,8 +18,8 @@
 use warnings;
 
 ## use or comment
-$warning    = 50;
-$critical   = 70;
+$warning    = 30;
+$critical   = 60;
 $usrwarning = 90;
 
 ##===================================================================##
@@ -82,10 +82,10 @@ idle.colour b3e1ae
 idle.info Idle CPU time
 EOT
 
-    $warning    = $ncpu * $warning;
-    $critical   = $ncpu * $critical;
-    $usrwarning = $ncpu * $usrwarning;
     if ( defined $warning ) {
+        $warning    = $ncpu * $warning;
+        $critical   = $ncpu * $critical;
+        $usrwarning = $ncpu * $usrwarning;
         print <<EOT;
 system.warning $warning
 system.critical $critical
