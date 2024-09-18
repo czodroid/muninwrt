@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:51
-# $Id: load,v 1.42 2024/09/04 10:51:07 czo Git $
-# Edit Time: 7:09:07
+# Last Modified: Wednesday 18 September 2024, 14:21
+# $Id: load,v 1.42 2024/09/18 14:21:44 czo Git $
+# Edit Time: 7:19:44
 # Description:
 #
 #           Munin plugin
@@ -37,6 +37,17 @@ load.info 5 minute load average"
 EOT
 
     if ( defined $warning ) {
+        $file = '/proc/stat';
+        open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+        while (<FILE>) {
+            chomp;
+            if (/^cpu[0-9]+\s/) { $ncpu++ }
+        }
+        close FILE;
+
+        $warning  = $warning * $ncpu;
+        $critical = $critical * $ncpu;
+
         print <<EOT;
 load.warning $warning
 load.critical $critical
