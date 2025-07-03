@@ -1,0 +1,34 @@
+#! /bin/sh
+#
+# Filename: munin-node-configure
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 03 July 2025
+# Last Modified: Thursday 03 July 2025, 22:16
+# $Id:$
+# Edit Time: 0:00:57
+# Description:
+#
+# Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
+
+if [ $(id -u) -ne 0 ]; then
+    echo "ERROR: this script must be run as root"
+    exit 1
+fi
+
+exe_path="$(readlink /proc/1/exe 2>/dev/null)"
+
+if [ -n "$exe_path" ]; then
+  case "$exe_path" in
+    *systemd*)
+      echo "System is using systemd."
+      # Your systemd-specific command
+      ;;
+    *)
+      echo "System is NOT using systemd."
+      ;;
+  esac
+else
+  echo "Could not determine init system (readlink failed)"
+fi
+

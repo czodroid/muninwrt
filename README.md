@@ -4,7 +4,7 @@ Munin node for OpenWRT implemented in perl like pmmn, with all plugins in /etc/m
 
 Munin is a monitoring system for Unix networks.
 
-## Sorce code
+## Source code
 https://github.com/czodroid/muninwrt
 
 
