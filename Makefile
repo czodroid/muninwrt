@@ -2,7 +2,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Thursday 3 July 2025, 22:12
+# Last Modified: Friday 4 July 2025, 01:13
 # Edit Time: 2:56:11
 # Description:
 #
@@ -13,7 +13,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=muninwrt
-PKG_VERSION:=0.1.1
+PKG_VERSION:=1.0.1
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Olivier Sirol <czo@free.fr>
@@ -35,11 +35,6 @@ endef
 define Package/muninwrt/Default/description
   Munin is a monitoring system for Unix networks.
   Munin node for OpenWRT implemented in perl like pmmn, with all plugins in /etc/munin/plugins.
-  As of version 0.1, it does not depends on xinetd.
-  Just do add this in munin.conf:
-  [chez.wam;sb-bose]
-    address ssh://tc@sb-bose -t /etc/munin/munin-pmmn
-    use_node_name yes
 endef
 
 define Package/muninwrt/install

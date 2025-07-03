@@ -3,7 +3,7 @@
 # Filename: munin-pmmn
 # Author: Olivier Sirol <czo@free.fr>
 # File Created: 20 April 2014
-# Last Modified: Thursday 3 July 2025, 22:12
+# Last Modified: Friday 4 July 2025, 01:12
 # Description:
 #
 #  A Poor Man's Munin Node that only uses warnings and strict as modules.
@@ -24,7 +24,7 @@ use strict;
 
 $| = 1;
 
-my $VERSION = "0.1.1";
+my $VERSION = "1.0.1";
 
 # my $pmmn_dir = "/home/tc/munin";
 # my $pmmn_dir = "/Users/czo/Desktop/dev/munin";
