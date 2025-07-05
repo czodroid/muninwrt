@@ -4,22 +4,22 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 18 September 2024, 15:36
-# $Id: load,v 1.42 2024/09/18 15:36:04 czo Git $
-# Edit Time: 7:22:25
+# Last Modified: Saturday 05 July 2025, 12:23
+# $Id: load,v 1.42 2025/07/05 12:23:06 czo Git $
+# Edit Time: 7:22:32
 # Description:
 #
 #           Munin plugin
 #           monitor load average
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
 
 ## use or comment
 $warning  = 10;
-$critical = 50;
+$critical = 20;
 
 ##===================================================================##
 ## Main
