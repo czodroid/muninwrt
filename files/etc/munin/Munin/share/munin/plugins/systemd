@@ -1,0 +1,46 @@
+#! /usr/bin/env perl
+#
+# Filename: systemd
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 02 July 2025
+# Last Modified: Thursday 03 July 2025, 09:43
+# $Id: systemd,v 1.5 2025/07/03 07:43:34 czo Exp $
+# Edit Time: 0:50:53
+# Description:
+#
+#           Munin plugin
+#           Plugin to measure failed systemd.
+#
+# Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
+
+# use strict;
+use warnings;
+
+## use or comment
+$warning = .9;
+
+##===================================================================##
+## Main
+
+if ( $ARGV[0] and $ARGV[0] eq "config" ) {
+    print <<EOT;
+graph_title Systemd failed
+graph_args --base 1000 -l 0
+graph_vlabel nb
+graph_category system
+systemd.label failed
+systemd.draw AREA
+systemd.info numbers of failed systemd
+EOT
+    if ( defined $warning ) {
+        print "systemd.warning $warning\n";
+    }
+    exit 0;
+}
+
+($systemd) = qx(systemctl --failed | grep failed | wc -l 2>/dev/null);
+chomp($systemd);
+printf "systemd.value $systemd\n";
+
+__END__

@@ -3,7 +3,7 @@
 # Filename: munin-pmmn
 # Author: Olivier Sirol <czo@free.fr>
 # File Created: 20 April 2014
-# Last Modified: Friday 4 July 2025, 01:12
+# Last Modified: Friday 4 July 2025, 02:23
 # Description:
 #
 #  A Poor Man's Munin Node that only uses warnings and strict as modules.
@@ -28,12 +28,15 @@ my $VERSION = "1.0.1";
 
 # my $pmmn_dir = "/home/tc/munin";
 # my $pmmn_dir = "/Users/czo/Desktop/dev/munin";
-my $pmmn_dir   = "/etc/munin";
-my $plugin_dir = $pmmn_dir . "/plugins";
-my $host       = 'localhost';
+my $pmmn_dir       = "/etc/munin";
+my $plugin_dir     = $pmmn_dir . "/plugins";
+# my $spoolfetch_dir = $pmmn_dir . '/munin-async';
 my $spoolfetch_dir;
+my $host           = 'localhost';
 
 {
+    # PERL INIT
+
     # plugins/plugin.sh and Munin/Plugin.pm for plugins
     # export MUNIN_LIBDIR=/etc/munin ; export PERL5LIB=/etc/munin
     $ENV{'MUNIN_LIBDIR'} = $pmmn_dir;
