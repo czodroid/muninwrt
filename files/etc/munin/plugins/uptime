@@ -4,15 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:52
-# $Id: uptime,v 1.42 2024/09/04 10:52:02 czo Git $
-# Edit Time: 7:15:50
+# Last Modified: Sunday 06 July 2025, 10:38
+# $Id: uptime,v 1.42 2025/07/06 10:38:50 czo Git $
+# Edit Time: 7:19:41
 # Description:
 #
 #           Munin plugin
 #           Plugin to measure uptime.
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
@@ -37,11 +37,12 @@ EOT
 
 $file = '/proc/uptime';
 open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
+
 # 407796.11 600573.58
 while (<FILE>) {
     chomp;
     ($uptime) = /^([0-9.]+)/;
-    printf "uptime.value %.2f\n",$uptime/86400;
+    printf "uptime.value %.2f\n", $uptime / 86400;
 }
 close FILE;
 

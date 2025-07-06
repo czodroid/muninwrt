@@ -4,15 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Wednesday 04 September 2024, 10:51
-# $Id: irqstats,v 1.42 2024/09/04 10:51:02 czo Git $
-# Edit Time: 17:23:28
+# Last Modified: Sunday 06 July 2025, 10:38
+# $Id: irqstats,v 1.42 2025/07/06 10:38:50 czo Git $
+# Edit Time: 17:27:19
 # Description:
 #
 #           Munin plugin
 #           monitor individual interrupts
 #
-# Copyright: (C) 2014-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2014-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
@@ -79,7 +79,7 @@ graph_vlabel interrupts / \${graph_period}
 graph_category system
 graph_info Shows the number of different IRQs received by the kernel.  High disk or network traffic can cause a high number of interrupts (with good hardware and drivers this will be less so). Sudden high interrupt activity with no associated higher system activity is not normal.
 EOT
-foreach my $irq ( sort keys %i) {
+    foreach my $irq ( sort keys %i ) {
         print "$i{$irq}{irq}.label $i{$irq}{label}\n";
         print "$i{$irq}{irq}.info $i{$irq}{info}\n";
         print "$i{$irq}{irq}.type DERIVE\n";
@@ -88,7 +88,7 @@ foreach my $irq ( sort keys %i) {
     exit 0;
 }
 
-foreach my $irq ( sort keys %i) {
+foreach my $irq ( sort keys %i ) {
     print "$i{$irq}{irq}.value $i{$irq}{count}\n";
 }
 

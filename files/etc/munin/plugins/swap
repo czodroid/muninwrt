@@ -4,15 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:51
-# $Id: swap,v 1.42 2024/09/04 10:51:52 czo Git $
-# Edit Time: 7:17:59
+# Last Modified: Sunday 06 July 2025, 10:38
+# $Id: swap,v 1.42 2025/07/06 10:38:50 czo Git $
+# Edit Time: 7:21:50
 # Description:
 #
 #           Munin plugin
 #           monitor swap IO in number of blocks per second
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
@@ -43,14 +43,14 @@ EOT
 }
 
 # /proc/vmstat since 2.6.18 ?
-$swap_in='U';
-$swap_out='U';
-$file = '/proc/vmstat';
+$swap_in  = 'U';
+$swap_out = 'U';
+$file     = '/proc/vmstat';
 open( FILE, "<$file" ) or die "ERROR: can't read $file: $!\n";
 while (<FILE>) {
     chomp;
-    if (/pswpin\s+([0-9.]+)/) {$swap_in=$1}
-    if (/pswpout\s+([0-9.]+)/) {$swap_out=$1}
+    if (/pswpin\s+([0-9.]+)/)  { $swap_in  = $1 }
+    if (/pswpout\s+([0-9.]+)/) { $swap_out = $1 }
 }
 print "swap_in.value $swap_in\n";
 print "swap_out.value $swap_out\n";

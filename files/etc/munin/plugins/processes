@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: Dec 2014
-# Last Modified: Sunday 06 July 2025, 10:16
-# $Id: processes,v 1.42 2025/07/06 10:16:19 czo Git $
-# Edit Time: 8:01:51
+# Last Modified: Sunday 06 July 2025, 10:38
+# $Id: processes,v 1.42 2025/07/06 10:38:50 czo Git $
+# Edit Time: 8:05:42
 # Description:
 #
 #           Munin plugin
@@ -39,7 +39,7 @@ EOT
 # @nbproc = glob("/proc/[0-9]*");
 # print "processes.value $#nbproc\n";
 
-die "ERROR: can't read /proc\n" if ! -d '/proc';
+die "ERROR: can't read /proc\n" if !-d '/proc';
 
 $nbproc = qx(echo /proc/[0-9]* | wc -w);
 chomp $nbproc;
