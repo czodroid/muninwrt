@@ -4,13 +4,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Sunday 06 July 2025, 10:07
-# $Id: df,v 1.42 2025/07/06 10:07:37 czo Git $
-# Edit Time: 3:25:17
+# Last Modified: Sunday 06 July 2025, 12:04
+# $Id: df,v 1.42 2025/07/06 12:04:21 czo Git $
+# Edit Time: 3:30:32
 # Description:
 #
-#           Munin plugin
-#           monitor disk usage in percent
+#      Munin plugin
+#      monitor disk usage in percent
+#
+#      Config is in this code:
+#       $exclude = Exclude name or mountpoint or type
 #
 # Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
@@ -21,14 +24,14 @@ my $warning;
 my $critical;
 
 ## use or comment
-# $warning  = 92;
-# $critical = 98;
+$warning  = 92;
+$critical = 98;
 
 ## Exclude name or mountpoint or type
 # debian
 # my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
 # openwrt
-my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs|\/snap\/';
+my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs|\/tcloop\/|\/snap\/';
 ## For these devices use the mount point, the device is useless
 my %usemntpt = ( tmpfs => 1, none => 1, udev => 1, simfs => 1 );
 my %dfh;
