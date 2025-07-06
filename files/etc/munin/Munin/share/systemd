@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 02 July 2025
-# Last Modified: Thursday 03 July 2025, 09:43
+# Last Modified: Saturday 05 July 2025, 15:52
 # $Id: systemd,v 1.5 2025/07/03 07:43:34 czo Exp $
-# Edit Time: 0:50:53
+# Edit Time: 1:57:19
 # Description:
 #
 #           Munin plugin
@@ -39,7 +39,8 @@ EOT
     exit 0;
 }
 
-($systemd) = qx(systemctl --failed | grep failed | wc -l 2>/dev/null);
+qx(which systemctl 2>/dev/null) or die "ERROR: `systemctl' not found\n";
+($systemd) = qx((systemctl --failed | grep failed | wc -l) 2>/dev/null);
 chomp($systemd);
 printf "systemd.value $systemd\n";
 

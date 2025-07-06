@@ -2,13 +2,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Friday 4 July 2025, 01:13
-# Edit Time: 2:56:11
+# Last Modified: Saturday 05 July 2025, 12:27
+# Edit Time: 2:56:16
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
 #
-# Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2024, 2025 Olivier Sirol <czo@free.fr>
 
 include $(TOPDIR)/rules.mk
 
