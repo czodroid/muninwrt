@@ -4,7 +4,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:52
+# Last Modified: Sunday 6 July 2025, 09:41
 # $Id: wireless,v 1.42 2024/09/04 10:52:11 czo Git $
 # Edit Time: 14:27:25
 # Description:
@@ -43,7 +43,7 @@ sub clean_fieldname ($) {
 ##===================================================================##
 ## Main
 
-qx(sh -c 'command -v iwinfo') or die "ERROR: `iwinfo' not found\n";
+qx(which iwinfo 2>/dev/null) or die "ERROR: `iwinfo' not found\n";
 
 # foreach (qx(cat w)) {
 foreach (qx(iwinfo 2>/dev/null)) {
