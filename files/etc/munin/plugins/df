@@ -4,16 +4,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Sunday 06 July 2025, 12:04
-# $Id: df,v 1.42 2025/07/06 12:04:21 czo Git $
-# Edit Time: 3:30:32
+# Last Modified: Monday 07 July 2025, 22:30
+# $Id: df,v 1.42 2025/07/07 22:30:44 czo Git $
+# Edit Time: 3:44:16
 # Description:
 #
-#      Munin plugin
-#      monitor disk usage in percent
+#       Munin plugin
+#       monitor disk usage in percent
 #
-#      Config is in this code:
-#       $exclude = Exclude name or mountpoint or type
+#       Config is in this code:
+#        $exclude = Exclude name or mountpoint or type
 #
 # Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 

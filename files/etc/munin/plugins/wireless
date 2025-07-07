@@ -4,13 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Sunday 6 July 2025, 09:41
-# $Id: wireless,v 1.42 2024/09/04 10:52:11 czo Git $
-# Edit Time: 14:27:25
+# Last Modified: Monday 07 July 2025, 22:32
+# $Id: wireless,v 1.42 2025/07/07 22:32:36 czo Git $
+# Edit Time: 14:43:01
 # Description:
 #
-#           Munin plugin for if_[wildcard]
-#           monitor traffic on network interfaces
+#       Munin plugin for if_[wildcard]
+#       monitor traffic on network interfaces
 #
 # it seems that iwinfo now displays 'Tx-Power:' and 'Signal:'
 # for all interfaces, not just the radio.
@@ -22,7 +22,7 @@
 #   phy0-ap0
 #   phy0-ap1
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;

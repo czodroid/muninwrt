@@ -4,13 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Sunday 06 July 2025, 10:38
-# $Id: swap,v 1.42 2025/07/06 10:38:50 czo Git $
-# Edit Time: 7:21:50
+# Last Modified: Monday 07 July 2025, 22:32
+# $Id: swap,v 1.42 2025/07/07 22:32:17 czo Git $
+# Edit Time: 7:37:07
 # Description:
 #
-#           Munin plugin
-#           monitor swap IO in number of blocks per second
+#       Munin plugin
+#       monitor swap IO in number of blocks per second
 #
 # Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 

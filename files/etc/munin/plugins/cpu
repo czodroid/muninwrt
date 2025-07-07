@@ -4,13 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Saturday 05 July 2025, 12:24
-# $Id: cpu,v 1.42 2025/07/05 12:24:22 czo Git $
-# Edit Time: 7:13:30
+# Last Modified: Monday 07 July 2025, 22:30
+# $Id: cpu,v 1.42 2025/07/07 22:30:42 czo Git $
+# Edit Time: 7:27:12
 # Description:
 #
-#           Munin plugin
-#           monitor cpu usage
+#       Munin plugin
+#       monitor cpu usage
 #
 # Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 

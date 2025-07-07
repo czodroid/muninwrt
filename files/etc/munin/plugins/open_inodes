@@ -4,15 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:51
-# $Id: open_inodes,v 1.42 2024/09/04 10:51:30 czo Git $
-# Edit Time: 7:44:43
+# Last Modified: Monday 07 July 2025, 22:31
+# $Id: open_inodes,v 1.42 2025/07/07 22:31:59 czo Git $
+# Edit Time: 7:59:42
 # Description:
 #
-#           Munin plugin
-#           monitor the number of open files in the system
+#       Munin plugin
+#       monitor the number of open inodes in the system
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
