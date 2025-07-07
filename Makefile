@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Saturday 05 July 2025, 12:27
-# Edit Time: 2:56:16
+# Last Modified: Monday 07 July 2025, 18:39
+# Edit Time: 2:58:55
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -66,6 +66,13 @@ define Package/muninwrt/install
     $(INSTALL_BIN)  ./files/etc/munin/plugins/swap              $(1)/etc/munin/plugins/
     $(INSTALL_BIN)  ./files/etc/munin/plugins/uptime            $(1)/etc/munin/plugins/
     $(INSTALL_BIN)  ./files/etc/munin/plugins/wireless          $(1)/etc/munin/plugins/
+endef
+
+define Package/muninwrt/postinst
+#!/bin/sh
+echo "-> running munin-node-configure"
+/etc/munin/Munin/munin-node-configure
+echo "<- done!"
 endef
 
 $(eval $(call BuildPackage,muninwrt))
