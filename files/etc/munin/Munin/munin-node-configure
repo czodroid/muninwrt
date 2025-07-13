@@ -4,24 +4,34 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Saturday 5 July 2025, 12:05
+# Last Modified: Sunday 13 July 2025, 10:32
 # $Id:$
-# Edit Time: 0:00:57
+# Edit Time: 0:30:40
 # Description:
 #
 # Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
 
 if [ $(id -u) -ne 0 ]; then
-  echo "ERROR: this script must be run as root"
-  exit 1
+    echo "ERROR: this script must be run as root"
+    exit 1
 fi
 
 DIRNAME="$(dirname $(readlink -f $0))"
+echo $DIRNAME
 cd $DIRNAME || exit 42
 
 case "X$(readlink /proc/1/exe 2>/dev/null)" in
-  *systemd*)
-    echo "System is using systemd."
-    # Your systemd-specific command
-    ;;
+    *systemd*)
+        echo "-> systemd"
+        ln -sf $DIRNAME/share/systemd $DIRNAME/../plugins/
+        ;;
 esac
+
+IF_NAMES=$(sed 's/^ *//; s/:.*$//; / /d; /^lo$/d' /proc/net/dev)
+for INTER in $IF_NAMES; do
+    # pas sur pour eth0.1
+    # INTERRES=$(echo "$INTER" | sed -e 's/\./VLAN/' -e 's/\-/_/g')
+    # echo $INTERRES
+    echo "-> if_ $INTER"
+    ln -sf $DIRNAME/share/if_ $DIRNAME/../plugins/if_$INTER
+done
