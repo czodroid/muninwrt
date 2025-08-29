@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Sunday 13 July 2025, 10:32
+# Last Modified: Friday 29 August 2025, 15:59
 # $Id:$
-# Edit Time: 0:30:40
+# Edit Time: 0:32:07
 # Description:
 #
 # Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
@@ -32,6 +32,7 @@ for INTER in $IF_NAMES; do
     # pas sur pour eth0.1
     # INTERRES=$(echo "$INTER" | sed -e 's/\./VLAN/' -e 's/\-/_/g')
     # echo $INTERRES
-    echo "-> if_ $INTER"
+    echo "-> if_ and if_err_ for $INTER"
     ln -sf $DIRNAME/share/if_ $DIRNAME/../plugins/if_$INTER
+    ln -sf $DIRNAME/share/if_err_ $DIRNAME/../plugins/if_err_$INTER
 done
