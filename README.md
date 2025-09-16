@@ -1,8 +1,12 @@
-# Muninwrt - a munin node for OpenWRT
+# Muninwrt - a munin node for small Linux systems
 
-Munin is a monitoring system for Unix networks.
+Munin is a networked resource monitoring tool that can help analyze resource trends.
 
-Munin node for OpenWRT implemented in perl like pmmn, with all plugins in /etc/munin/plugins.
+Munin is an old resource monitoring tool with an RRD database that can outperform Prometheus/AlertManager/Grafana for small systems.
+
+Muninwrt is a munin node implemented in perl like pmmn, with all plugins in /etc/munin/plugins.
+
+It works on small Linux systems: OpenWRT, RUTX, Tiny Core Linux, piCorePlayer and so on, and even on debian 🥳
 
 As of version 1.0.0 of muninwrt, it does not depends on xinetd.
 
