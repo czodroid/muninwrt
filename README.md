@@ -24,4 +24,3 @@ On OpenWRT, you will need to install perl and possibly the `perlbase-getopt` and
 
 ## Source code
 https://github.com/czodroid/muninwrt
-
