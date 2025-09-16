@@ -1,16 +1,16 @@
-# Muninwrt - a munin node for small Linux systems
+# Muninwrt - a Munin node for small Linux systems
 
-Munin is a networked resource monitoring tool that can help analyze resource trends.
+Munin is a networked resource monitoring tool that helps analyze resource trends.
 
-Munin is an old resource monitoring tool with an RRD database that can outperform Prometheus/AlertManager/Grafana for small systems.
+Although Munin is an older tool, it can outperform Prometheus/AlertManager/Grafana on small systems, thanks to its lightweight design and use of an RRD-based fixed-size database.
 
-Muninwrt is a munin node implemented in perl like pmmn, with all plugins in /etc/munin/plugins.
+Muninwrt is a Munin node implemented in Perl, similar to `pmmn`, with all plugins located in `/etc/munin/plugins`.
 
-It works on small Linux systems: OpenWRT, RUTX, Tiny Core Linux, piCorePlayer and so on, and even on debian 🥳
+It works on small Linux systems such as OpenWRT, RUTX, Tiny Core Linux, piCorePlayer, and even Debian 🥳.
 
-As of version 1.0.0 of muninwrt, it does not depends on xinetd.
+As of version 1.0.0, Muninwrt no longer depends on `xinetd`.
 
-Just do add this in munin.conf:
+Just add this to your `munin.conf`:
 
 ```
 [chez.wam;sb-bose]
@@ -18,13 +18,10 @@ Just do add this in munin.conf:
   use_node_name yes
 ```
 
-So you must have ```ssh``` and a configured ```authorized_keys```
+You must have `ssh` installed and a properly configured `authorized_keys`.
 
-On OpenWRT you need to install perl and maybe perlbase-getopt and perlbase-file
-
+On OpenWRT, you will need to install Perl and possibly the `perlbase-getopt` and `perlbase-file` packages.
 
 ## Source code
 https://github.com/czodroid/muninwrt
-
-
 
