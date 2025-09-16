@@ -6,7 +6,7 @@ Although Munin is an older tool, it can outperform Prometheus/AlertManager/Grafa
 
 Muninwrt is a Munin node implemented in perl, similar to `pmmn`, with all plugins located in `/etc/munin/plugins`.
 
-It works on small Linux systems: OpenWRT, RUTX, Tiny Core Linux, piCorePlayer and so on, and even Debian 🥳.
+It works on small Linux systems: OpenWRT, RUTX, Tiny Core Linux, piCore and so on, and even Debian 🥳.
 
 As of version 1.0.0, Muninwrt no longer depends on `xinetd`.
 
