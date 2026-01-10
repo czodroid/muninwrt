@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Monday 07 July 2025, 22:30
-# $Id: dfb,v 1.42 2025/07/07 22:30:45 czo Git $
-# Edit Time: 3:40:48
+# Last Modified: Saturday 10 January 2026, 16:52
+# $Id: dfb,v 1.42 2026/01/10 16:52:24 czo Git $
+# Edit Time: 3:49:47
 # Description:
 #
 #       Munin plugin
@@ -15,7 +15,7 @@
 #       Config is in this code:
 #        $exclude = Exclude name or mountpoint or type
 #
-# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2026 Olivier Sirol <czo@free.fr>
 
 use strict;
 use warnings;
@@ -28,10 +28,9 @@ my $critical;
 # $critical = 98;
 
 ## Exclude name or mountpoint or type
-# debian
-# my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
-# openwrt
-my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs|\/tcloop\/|\/snap\/';
+# debian: my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
+# openwrt: overlayfs:, rutx: mtdblock15, ubuntu: snap, tinyCore: tcloop, pcp; tcploop
+my $exclude = 'overlayfs:|mtdblock15|tmpfs|nfs|\/tcloop\/|\/tcploop\/|\/snap\/';
 ## For these devices use the mount point, the device is useless
 my %usemntpt = ( tmpfs => 1, none => 1, udev => 1, simfs => 1 );
 my %dfh;
