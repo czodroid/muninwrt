@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Sunday 15 February 2026, 20:14
-# Edit Time: 3:31:58
+# Last Modified: Sunday 15 February 2026, 20:18
+# Edit Time: 3:32:19
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -44,7 +44,7 @@ endef
 
 define Package/muninwrt/preinst
 #!/bin/sh
-echo "-> rm ${IPKG_INSTROOT}/etc/munin"
+echo "-> rm -fr ${IPKG_INSTROOT}/etc/munin"
 rm -fr ${IPKG_INSTROOT}/etc/munin
 endef
 
@@ -56,7 +56,7 @@ endef
 
 define Package/muninwrt/postrm
 #!/bin/sh
-echo "-> rm ${IPKG_INSTROOT}/etc/munin"
+echo "-> rm -fr ${IPKG_INSTROOT}/etc/munin"
 rm -fr ${IPKG_INSTROOT}/etc/munin
 endef
 
