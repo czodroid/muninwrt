@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 07 July 2025
-# Last Modified: Sunday 15 February 2026, 15:24
-# $Id: acpi.pl,v 1.42 2026/02/15 15:24:34 czo Git $
-# Edit Time: 1:36:53
+# Last Modified: Sunday 15 February 2026, 16:02
+# $Id: acpi.pl,v 1.42 2026/02/15 16:02:21 czo Git $
+# Edit Time: 1:12:47
 # Description:
 #
 #       Munin plugin
@@ -27,12 +27,14 @@ use warnings;
 ##===================================================================##
 ## Main
 $thrm = '/sys/class/thermal';
-die "ERROR: can't read $thrm\n" if !-d $thrm;
 
-foreach (qx(find /sys/class/thermal/ -maxdepth 1 -name "thermal_zone*")) {
-    chomp;
-    push( @ATZ, $_ );
-}
+opendir( $dh, $thrm ) or die "ERROR: can't read $thrm: $!\n";
+@entries = readdir($dh);
+closedir($dh);
+@ATZ = grep { /^thermal_zone/ && -d "/sys/class/thermal/$_" } @entries;
+@ATZ = map  { "/sys/class/thermal/$_" } @ATZ;
+
+print @ATZ;
 
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
     print <<EOT;
@@ -42,7 +44,7 @@ graph_category sensors
 graph_info This graph shows the temperature in different ACPI Thermal zones. If there is only one it will usually be the case temperature.
 EOT
     foreach $zone ( sort @ATZ ) {
-        if ( open( my $fh, '<', "$zone/type" ) ) {
+        if ( open( $fh, '<', "$zone/type" ) ) {
             my $type = <$fh>;
             chomp $type;
             close $fh;
@@ -61,7 +63,7 @@ foreach $zone ( sort @ATZ ) {
         close $fh;
         $zone_name = $zone;
         $zone_name =~ s,^.*/,,;
-        print "${zone_name}.value " . $temp_celsius / 1000 . "\n";
+        print "${zone_name}.value " . $temp / 1000 . "\n";
     }
 }
 
