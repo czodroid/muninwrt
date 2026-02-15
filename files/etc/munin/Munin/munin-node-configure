@@ -4,35 +4,34 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Friday 29 August 2025, 15:59
+# Last Modified: Sunday 15 February 2026, 15:30
 # $Id:$
-# Edit Time: 0:32:07
+# Edit Time: 0:35:29
 # Description:
 #
-# Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2025, 2026 Olivier Sirol <czo@free.fr>
 
-if [ $(id -u) -ne 0 ]; then
-    echo "ERROR: this script must be run as root"
-    exit 1
-fi
-
+## get the right path
 DIRNAME="$(dirname $(readlink -f $0))"
 echo $DIRNAME
 cd $DIRNAME || exit 42
 
+## systemd
 case "X$(readlink /proc/1/exe 2>/dev/null)" in
     *systemd*)
-        echo "-> systemd"
+        echo "-> systemd OK"
         ln -sf $DIRNAME/share/systemd $DIRNAME/../plugins/
         ;;
 esac
+
+# find /sys/class/thermal/ -maxdepth 1 -name "thermal_zone*"
 
 IF_NAMES=$(sed 's/^ *//; s/:.*$//; / /d; /^lo$/d' /proc/net/dev)
 for INTER in $IF_NAMES; do
     # pas sur pour eth0.1
     # INTERRES=$(echo "$INTER" | sed -e 's/\./VLAN/' -e 's/\-/_/g')
     # echo $INTERRES
-    echo "-> if_ and if_err_ for $INTER"
+    echo "-> $INTER OK for if_ and if_err_"
     ln -sf $DIRNAME/share/if_ $DIRNAME/../plugins/if_$INTER
     ln -sf $DIRNAME/share/if_err_ $DIRNAME/../plugins/if_err_$INTER
 done
