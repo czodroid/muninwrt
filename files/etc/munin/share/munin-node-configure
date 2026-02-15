@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Sunday 15 February 2026, 17:50
+# Last Modified: Sunday 15 February 2026, 18:58
 # $Id:$
 # Edit Time: 1:03:50
 # Description:
 #
 #             munin node configuration
 #              - interfaces for all interface in /proc/net/dev
-#              - systemd if OS has systmed
+#              - systemd if OS has systemd
 #              - acpi thermal
 #
 # Copyright: (C) 2025, 2026 Olivier Sirol <czo@free.fr>
