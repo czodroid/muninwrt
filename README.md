@@ -20,7 +20,7 @@ Just add this to your `munin.conf`:
 
 You must have `ssh` installed and a properly configured `authorized_keys`.
 
-On OpenWRT, you will need to install perl and possibly the `perlbase-getopt` and `perlbase-file` packages.
+On OpenWRT, you will need to install perl and possibly the `perlbase-getopt` and `perlbase-file` packages for the plugins.
 
 ## Source code
 https://github.com/czodroid/muninwrt

@@ -3,7 +3,7 @@
 # Filename: munin-pmmn
 # Author: Olivier Sirol <czo@free.fr>
 # File Created: 20 April 2014
-# Last Modified: Sunday 06 July 2025, 10:02
+# Last Modified: Sunday 15 February 2026, 18:33
 # Description:
 #
 #  A Poor Man's Munin Node that only uses warnings and strict as modules.
@@ -15,9 +15,9 @@
 #   $host: the hostname (but set as uname -n)
 #
 #   On OpenWRT you need to install perl and maybe
-#   perlbase-getopt and perlbase-file
+#   perlbase-getopt and perlbase-file for the plugins
 #
-# Copyright: (C) 2014-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2014-2026 Olivier Sirol <czo@free.fr>
 
 use warnings;
 use strict;
