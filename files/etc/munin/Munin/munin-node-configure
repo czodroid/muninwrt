@@ -4,10 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Sunday 15 February 2026, 15:30
+# Last Modified: Sunday 15 February 2026, 17:05
 # $Id:$
-# Edit Time: 0:35:29
+# Edit Time: 0:59:57
 # Description:
+#
+#             munin node configuration
+#              - interfaces for all interface in /proc/net/dev
+#              - systemd if OS has systmed
+#              - acpi thermal
 #
 # Copyright: (C) 2025, 2026 Olivier Sirol <czo@free.fr>
 
@@ -16,16 +21,7 @@ DIRNAME="$(dirname $(readlink -f $0))"
 echo $DIRNAME
 cd $DIRNAME || exit 42
 
-## systemd
-case "X$(readlink /proc/1/exe 2>/dev/null)" in
-    *systemd*)
-        echo "-> systemd OK"
-        ln -sf $DIRNAME/share/systemd $DIRNAME/../plugins/
-        ;;
-esac
-
-# find /sys/class/thermal/ -maxdepth 1 -name "thermal_zone*"
-
+## interfaces
 IF_NAMES=$(sed 's/^ *//; s/:.*$//; / /d; /^lo$/d' /proc/net/dev)
 for INTER in $IF_NAMES; do
     # pas sur pour eth0.1
@@ -35,3 +31,18 @@ for INTER in $IF_NAMES; do
     ln -sf $DIRNAME/share/if_ $DIRNAME/../plugins/if_$INTER
     ln -sf $DIRNAME/share/if_err_ $DIRNAME/../plugins/if_err_$INTER
 done
+
+## systemd
+case "X$(readlink /proc/1/exe 2>/dev/null)" in
+    *systemd*)
+        echo "-> systemd OK"
+        ln -sf $DIRNAME/share/systemd $DIRNAME/../plugins/
+        ;;
+esac
+
+## acpi thermal
+THERNB=$({ find /sys/class/thermal | grep "thermal_zone" | wc -l; } 2>/dev/null)
+if [ ! "X$THERNB" = "X0" ]; then
+    echo "-> acpi thermal OK"
+    ln -sf $DIRNAME/share/acpi $DIRNAME/../plugins/
+fi

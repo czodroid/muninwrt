@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+#
+# Filename: munin-del
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 15 February 2026
+# Last Modified: Sunday 15 February 2026, 17:12
+# $Id:$
+# Edit Time: 0:07:52
+# Description:
+#
+#           deletes old munin plugins
+#            - df_abs is dfb
+#            - delete acpi if_* if_err_* systemd
+#            and cpu df dfb forks interrupts irqstats
+#            load memory open_files open_inodes
+#            processes swap uptime wireless
+#
+# Copyright: (C) 2026 Olivier Sirol <czo@free.fr>
+
+if [ -d /etc/munin/plugins ]; then
+    echo <<<'END'
+
+    cd /etc/munin/plugins
+    rm df_abs acpi if_* if_err_* systemd cpu df dfb forks interrupts irqstats load memory open_files open_inodes plugin.sh processes swap uptime wireless
+END
+
+
+fi

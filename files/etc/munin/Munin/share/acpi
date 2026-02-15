@@ -1,12 +1,12 @@
 #! /usr/bin/env perl
 #
-# Filename: acpi.pl
+# Filename: acpi
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 07 July 2025
-# Last Modified: Sunday 15 February 2026, 16:02
-# $Id: acpi.pl,v 1.42 2026/02/15 16:02:21 czo Git $
-# Edit Time: 1:12:47
+# Last Modified: Sunday 15 February 2026, 16:39
+# $Id: acpi,v 1.42 2026/02/15 16:39:08 czo Git $
+# Edit Time: 1:13:21
 # Description:
 #
 #       Munin plugin
@@ -14,6 +14,8 @@
 #
 #       Load the 'thermal' kernel module and the plugin gets the
 #       thermal zones from /sys/class/thermal/thermal_zone*/
+#
+#       find /sys/class/thermal/ -maxdepth 1 -name "thermal_zone*" | wc -l
 #
 #       Orig (c) Nicolai Langfeldt (janl@linpro.no) 2006-11-13
 #
@@ -33,8 +35,6 @@ opendir( $dh, $thrm ) or die "ERROR: can't read $thrm: $!\n";
 closedir($dh);
 @ATZ = grep { /^thermal_zone/ && -d "/sys/class/thermal/$_" } @entries;
 @ATZ = map  { "/sys/class/thermal/$_" } @ATZ;
-
-print @ATZ;
 
 if ( $ARGV[0] and $ARGV[0] eq "config" ) {
     print <<EOT;
