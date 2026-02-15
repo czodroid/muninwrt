@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Sunday 15 February 2026, 17:28
+# Last Modified: Sunday 15 February 2026, 17:50
 # $Id:$
-# Edit Time: 1:00:57
+# Edit Time: 1:03:50
 # Description:
 #
 #             munin node configuration
@@ -27,7 +27,7 @@ for INTER in $IF_NAMES; do
     # pas sur pour eth0.1
     # INTERRES=$(echo "$INTER" | sed -e 's/\./VLAN/' -e 's/\-/_/g')
     # echo $INTERRES
-    echo "-> $INTER OK for if_ and if_err_"
+    echo "-> if_ and if_err_ $INTER OK"
     ln -sf $DIRNAME/if_ $DIRNAME/../plugins/if_$INTER
     ln -sf $DIRNAME/if_err_ $DIRNAME/../plugins/if_err_$INTER
 done
