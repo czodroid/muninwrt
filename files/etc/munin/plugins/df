@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Saturday 10 January 2026, 16:53
-# $Id: df,v 1.42 2026/01/10 16:53:13 czo Git $
-# Edit Time: 3:44:46
+# Last Modified: Friday 27 February 2026, 17:38
+# $Id: df,v 1.42 2026/02/27 17:38:13 czo Git $
+# Edit Time: 3:45:17
 # Description:
 #
 #       Munin plugin
@@ -24,8 +24,8 @@ my $warning;
 my $critical;
 
 ## use or comment
-$warning  = 92;
-$critical = 98;
+$warning  = 94;
+$critical = 97;
 
 ## Exclude name or mountpoint or type
 # debian: my $exclude = 'none|unknown|rootfs|iso9660|squashfs|udf|romfs|ramfs|debugfs|cgroup_root|devtmpfs|nfs';
