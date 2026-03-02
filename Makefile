@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Sunday 15 February 2026, 20:18
-# Edit Time: 3:32:19
+# Last Modified: Monday 02 March 2026, 19:36
+# Edit Time: 3:34:12
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -50,7 +50,7 @@ endef
 
 define Package/muninwrt/postinst
 #!/bin/sh
-echo "-> running munin-node-configure"
+echo "-> running ${IPKG_INSTROOT}/etc/munin/share/munin-node-configure"
 ${IPKG_INSTROOT}/etc/munin/share/munin-node-configure
 endef
 
