@@ -2,8 +2,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 May 2024
-# Last Modified: Monday 02 March 2026, 19:36
-# Edit Time: 3:34:12
+# Last Modified: Wednesday 04 March 2026, 20:36
+# Edit Time: 3:34:21
 # Description:
 #
 #        OpenWRT Makefile for muninwrt
@@ -14,7 +14,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=muninwrt
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_MAINTAINER:=Olivier Sirol <czo@free.fr>
 PKG_LICENSE:=GPL-2.0
