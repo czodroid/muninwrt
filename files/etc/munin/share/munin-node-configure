@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 July 2025
-# Last Modified: Sunday 15 February 2026, 18:58
+# Last Modified: Thursday 16 April 2026, 11:11
 # $Id:$
-# Edit Time: 1:03:50
+# Edit Time: 1:06:46
 # Description:
 #
 #             munin node configuration
@@ -22,6 +22,7 @@ echo $DIRNAME
 cd $DIRNAME || exit 42
 
 ## interfaces
+rm -f $DIRNAME/../plugins/if_*
 IF_NAMES=$(sed 's/^ *//; s/:.*$//; / /d; /^lo$/d' /proc/net/dev)
 for INTER in $IF_NAMES; do
     # pas sur pour eth0.1
@@ -33,6 +34,7 @@ for INTER in $IF_NAMES; do
 done
 
 ## systemd
+rm -f $DIRNAME/../plugins/systemd
 case "X$(readlink /proc/1/exe 2>/dev/null)" in
     *systemd*)
         echo "-> systemd OK"
@@ -41,6 +43,7 @@ case "X$(readlink /proc/1/exe 2>/dev/null)" in
 esac
 
 ## acpi thermal
+rm -f $DIRNAME/../plugins/acpi
 THERNB=$({ find /sys/class/thermal | grep "thermal_zone" | wc -l; } 2>/dev/null)
 if [ ! "X$THERNB" = "X0" ]; then
     echo "-> acpi thermal OK"

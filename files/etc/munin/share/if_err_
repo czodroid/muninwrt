@@ -1,18 +1,19 @@
 #! /usr/bin/env perl
 #
-# Filename: if_err_br-lan
+# Filename: if_err_
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 03 Dec 2019
-# Last Modified: Wednesday 04 September 2024, 10:50
-# $Id: if_err_br-lan,v 1.42 2024/09/04 10:50:36 czo Git $
-# Edit Time: 9:11:45
+# Last Modified: Thursday 16 April 2026, 13:00
+# $Id: if_err_,v 1.42 2026/04/16 13:00:42 czo Git $
+# Edit Time: 9:12:44
 # Description:
 #
-#           Munin plugin for if_[wildcard]
-#           monitor traffic on network interfaces
+#           Munin plugin for if_err_[wildcard]
+#           monitors network interface errors
+#           from /proc/net/dev
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2026 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
@@ -24,7 +25,7 @@ $warning = 1;
 ##===================================================================##
 ## Main
 
-if ( $0 =~ /^(?:|.*\/)if_err_([^_]+)$/ ) {
+if ( $0 =~ /^(?:|.*\/)if_err_(.+)$/ ) {
     $INTERFACE = $1;
 }
 
